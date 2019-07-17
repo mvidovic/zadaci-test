@@ -1,1 +1,20 @@
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 50px;
+  border: 1px solid gray;
+  border-radius: 30px;
+  margin: 100px;
+}
+.grid-item {
+  text-align: left;
+}
+.grid-item:nth-child(1) {
+  text-align: center;
+}
 
+.responsive {
+  margin: 30px;
+  width: 50%;
+  height: auto;
+}

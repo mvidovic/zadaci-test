@@ -1,19 +1,20 @@
-import React, { Component } from "react";
-import { link } from "fs";
+import React from "react";
+import "./PokemonInfoComponent.css";
 
 const PokemonInfoComponent = props => {
-  console.log(props.pokemon, "pokemon");
   return (
-    <div>
-      <div>
-        <img src={props.pokemon.image} alt="" />
+    <div className="grid-container">
+      <div className="grid-item">
+        <img src={props.pokemon.image} alt="" className="responsive" />
       </div>
-      <div>
-        <h3>{props.pokemon.name}</h3>
+      <div className="grid-item">
+        <h2>{props.pokemon.name}</h2>
         <h4>Pokemon type</h4>
-        {props.pokemon.types.map((value, id) => (
-          <li key={id}>{value}</li>
-        ))}
+        <ul>
+          {props.pokemon.types.map((value, id) => (
+            <li key={id}>{value}</li>
+          ))}
+        </ul>
 
         <h4>Pokemon weight</h4>
         <ul>
@@ -26,15 +27,17 @@ const PokemonInfoComponent = props => {
           <li>Maximum: {props.pokemon.height.maximum}</li>
         </ul>
       </div>
-      <div>
+      <div className="grid-item">
         <h3>Special Attacks</h3>
-        {props.pokemon.attacks.special.map((attack, id) => (
-          <div key={id}>
-            <li>Name: {attack.name}</li>
-            <li>Type: {attack.type}</li>
-            <li>Damage: {attack.damage}</li>
-          </div>
-        ))}
+        <ul>
+          {props.pokemon.attacks.special.map((attack, id) => (
+            <div key={id}>
+              <li>Name: {attack.name}</li>
+              <li>Type: {attack.type}</li>
+              <li>Damage: {attack.damage}</li>
+            </div>
+          ))}
+        </ul>
       </div>
     </div>
   );

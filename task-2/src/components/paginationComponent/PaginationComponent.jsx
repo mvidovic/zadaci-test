@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 import "./PaginationComponent.css";
 const PaginationComponent = props => {
-  const { length } = props;
+  const { length } = props.length;
+  const { pokemonPerPage } = props.pokemonPerPage;
   const pages = length / 5;
-  return (
-    <div class="pagination">
-      <a href="#">&laquo;</a>
-      <a href="#">1
-      </a>
-      <a href="#">2</a>
-      <a href="#">3</a>
-      <a href="#">4</a>
-      <a href="#">5</a>
-      <a href="#">6</a>
-      <a href="#">&raquo;</a>
-    </div>
-  );
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(length / pokemonPerPage); i++) {
+    pageNumbers.push(i);
+    console.log(pageNumbers);
+  }
+  return pageNumbers.map(number => <li key={number}>{number}</li>);
 };
 
 export default PaginationComponent;

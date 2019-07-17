@@ -1,56 +1,23 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import ApolloClient from "apollo-boost";
-import { gql } from "apollo-boost";
 import "./FetchData.css";
 import PokemonInfoComponent from "../components/pokemonInfoComponent/PokemonInfoComponent.jsx";
 import PaginationComponent from "../components/paginationComponent/PaginationComponent.jsx";
+import { getPokemonsQuery } from "./pokemons.query";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokemon.now.sh/"
 });
 
-const FetchData = props => {
-  console.log(props);
+const FetchData = () => {
   const [loading, setLoading] = useState(true);
   const [pokemons, setPokemons] = useState([]);
-  const pageSize = 5;
+  const pokemonPerPage = 5;
   const [currentPage, setCurrentPage] = useState(1);
   useEffect(() => {
     client
       .query({
-        query: gql`
-          query {
-            pokemons(first: 50) {
-              id
-              number
-              name
-              weight {
-                minimum
-                maximum
-              }
-              height {
-                minimum
-                maximum
-              }
-              types
-              attacks {
-                special {
-                  name
-                  type
-                  damage
-                }
-              }
-              image
-              attacks {
-                special {
-                  name
-                  type
-                  damage
-                }
-              }
-            }
-          }
-        `
+        query: getPokemonsQuery
       })
       .then(response => {
         setPokemons(response.data.pokemons);
@@ -63,11 +30,14 @@ const FetchData = props => {
   ) : (
     <div>
       {pokemons
-        .slice((currentPage - 1) * pageSize, pageSize * currentPage)
+        .slice((currentPage - 1) * pokemonPerPage, pokemonPerPage * currentPage)
         .map(pokemon => (
           <PokemonInfoComponent key={pokemon.id} pokemon={pokemon} />
         ))}
-      <PaginationComponent length={pokemons.length} />
+      <PaginationComponent
+        length={pokemons.length}
+        pokemonPerPage={pokemonPerPage}
+      />
     </div>
   );
 };

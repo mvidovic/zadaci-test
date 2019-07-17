@@ -1,3 +1,4 @@
+import { gql } from "apollo-boost";
 export const getPokemonsQuery = gql`
   query {
     pokemons(first: 50) {
